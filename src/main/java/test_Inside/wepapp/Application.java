@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("test_Inside")
-@EntityScan("test_Inside")
+@EntityScan("test_Inside.models.entity")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
