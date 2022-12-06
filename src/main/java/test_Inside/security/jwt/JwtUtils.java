@@ -1,4 +1,4 @@
-package test_Inside.security;
+package test_Inside.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,5 +30,16 @@ public class JwtUtils {
         return new SecretKeySpec(
                 DatatypeConverter.parseBase64Binary(secret),
                 SignatureAlgorithm.HS256.getJcaName());
+    }
+
+    public boolean validateJwtToken(String jwtToken){
+        Jwts.parserBuilder().setSigningKey(getSigningKey())
+                .build().parseClaimsJws(jwtToken);
+        return true;
+    }
+
+    public String getNameFromJwtToken(String jwtToken){
+        return Jwts.parserBuilder().setSigningKey(getSigningKey())
+                .build().parseClaimsJws(jwtToken).getBody().getSubject();
     }
 }
