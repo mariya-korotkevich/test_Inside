@@ -30,4 +30,8 @@ public class Message {
     @Type(type = "org.hibernate.type.LocalDateTimeType")
     @CreationTimestamp
     private LocalDateTime persistDateTime;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class, cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
