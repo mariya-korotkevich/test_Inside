@@ -38,13 +38,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        } else {
+            SecurityContextHolder.getContext().setAuthentication(null);
         }
         filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request){
-        String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")){
+        String headerAuth = request.getHeader("Token");
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer_")){
             return headerAuth.substring(7);
         }
         return null;
