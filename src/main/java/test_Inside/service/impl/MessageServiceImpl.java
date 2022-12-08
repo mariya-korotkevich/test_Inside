@@ -27,9 +27,9 @@ public class MessageServiceImpl implements MessageService {
     @Transactional
     public MessageResponseDTO processMessage(MessageRequestDTO messageDto) {
         if (HISTORY_10.equals(messageDto.getMessage())){
-            return new MessageResponseDTO(messageRepository.findFirst10ByOrderByPersistDateTimeDesc());
+            return MessageResponseDTO.toDto(messageRepository.findFirst10ByOrderByPersistDateTimeDesc());
         }
-        return new MessageResponseDTO(save(messageDto));
+         return MessageResponseDTO.toDto(save(messageDto));
     }
 
     @Override

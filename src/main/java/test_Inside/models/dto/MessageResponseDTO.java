@@ -13,14 +13,16 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class MessageResponseDTO {
     private List<String> messages;
-
-    public MessageResponseDTO(List<Message> messagesList) {
-        this.messages = messagesList.stream()
-                .map(Message::getText)
-                .collect(Collectors.toList());
+    public static MessageResponseDTO toDto(Message message){
+        MessageResponseDTO messageResponseDTO = new MessageResponseDTO();
+        messageResponseDTO.setMessages(List.of(message.getText()));
+        return messageResponseDTO;
     }
 
-    public MessageResponseDTO(Message message) {
-        messages = List.of(message.getText());
+    public static MessageResponseDTO toDto(List<Message> messages){
+        MessageResponseDTO messageResponseDTO = new MessageResponseDTO();
+        messageResponseDTO.setMessages(messages.stream()
+                .map(Message::getText).collect(Collectors.toList()));
+        return messageResponseDTO;
     }
 }
